@@ -1,0 +1,852 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html dir="ltr" lang="en"><head>
+<title>SDRAM Memory Controller - Hamsterworks Wiki!</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="MediaWiki 1.16.2">
+<link rel="shortcut icon" href="http://hamsterworks.co.nz/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://hamsterworks.co.nz/mediawiki/opensearch_desc.php" title="Hamsterworks Wiki! (en)">
+<link rel="alternate" type="application/atom+xml" title="Hamsterworks Wiki! Atom feed" href="http://hamsterworks.co.nz/mediawiki/index.php?title=Special:RecentChanges&amp;feed=atom">
+<link rel="stylesheet" href="SDRAM%20Memory%20Controller%20-%20Hamsterworks%20Wiki%21_files/shared.css" media="screen">
+<link rel="stylesheet" href="SDRAM%20Memory%20Controller%20-%20Hamsterworks%20Wiki%21_files/commonPrint.css" media="print">
+<link rel="stylesheet" href="SDRAM%20Memory%20Controller%20-%20Hamsterworks%20Wiki%21_files/main.css" media="screen">
+<!--[if lt IE 5.5000]><link rel="stylesheet" href="/mediawiki/skins/monobook/IE50Fixes.css?270" media="screen" /><![endif]-->
+<!--[if IE 5.5000]><link rel="stylesheet" href="/mediawiki/skins/monobook/IE55Fixes.css?270" media="screen" /><![endif]-->
+<!--[if IE 6]><link rel="stylesheet" href="/mediawiki/skins/monobook/IE60Fixes.css?270" media="screen" /><![endif]-->
+<!--[if IE 7]><link rel="stylesheet" href="/mediawiki/skins/monobook/IE70Fixes.css?270" media="screen" /><![endif]-->
+<link rel="stylesheet" href="SDRAM%20Memory%20Controller%20-%20Hamsterworks%20Wiki%21_files/index_003.css">
+<link rel="stylesheet" href="SDRAM%20Memory%20Controller%20-%20Hamsterworks%20Wiki%21_files/index_004.css" media="print">
+<link rel="stylesheet" href="SDRAM%20Memory%20Controller%20-%20Hamsterworks%20Wiki%21_files/index_002.css">
+<link rel="stylesheet" href="SDRAM%20Memory%20Controller%20-%20Hamsterworks%20Wiki%21_files/index.css">
+<script>
+var skin="monobook",
+stylepath="/mediawiki/skins",
+wgUrlProtocols="http\\:\\/\\/|https\\:\\/\\/|ftp\\:\\/\\/|irc\\:\\/\\/|gopher\\:\\/\\/|telnet\\:\\/\\/|nntp\\:\\/\\/|worldwind\\:\\/\\/|mailto\\:|news\\:|svn\\:\\/\\/",
+wgArticlePath="/mediawiki/index.php/$1",
+wgScriptPath="/mediawiki",
+wgScriptExtension=".php",
+wgScript="/mediawiki/index.php",
+wgVariantArticlePath=false,
+wgActionPaths={},
+wgServer="http://hamsterworks.co.nz",
+wgCanonicalNamespace="",
+wgCanonicalSpecialPageName=false,
+wgNamespaceNumber=0,
+wgPageName="SDRAM_Memory_Controller",
+wgTitle="SDRAM Memory Controller",
+wgAction="view",
+wgArticleId=103,
+wgIsArticle=true,
+wgUserName=null,
+wgUserGroups=null,
+wgUserLanguage="en",
+wgContentLanguage="en",
+wgBreakFrames=false,
+wgCurRevisionId=3965,
+wgVersion="1.16.2",
+wgEnableAPI=true,
+wgEnableWriteAPI=true,
+wgSeparatorTransformTable=["", ""],
+wgDigitTransformTable=["", ""],
+wgMainPageTitle="Main Page",
+wgFormattedNamespaces={"-2": "Media", "-1": "Special", "0": "", "1": "Talk", "2": "User", "3": "User talk", "4": "Hamsterworks Wiki!", "5": "Hamsterworks Wiki! talk", "6": "File", "7": "File talk", "8": "MediaWiki", "9": "MediaWiki talk", "10": "Template", "11": "Template talk", "12": "Help", "13": "Help talk", "14": "Category", "15": "Category talk"},
+wgNamespaceIds={"media": -2, "special": -1, "": 0, "talk": 1, "user": 2, "user_talk": 3, "hamsterworks_wiki!": 4, "hamsterworks_wiki!_talk": 5, "file": 6, "file_talk": 7, "mediawiki": 8, "mediawiki_talk": 9, "template": 10, "template_talk": 11, "help": 12, "help_talk": 13, "category": 14, "category_talk": 15, "image": 6, "image_talk": 7},
+wgSiteName="Hamsterworks Wiki!",
+wgCategories=[],
+wgRestrictionEdit=[],
+wgRestrictionMove=[];
+</script><script src="SDRAM%20Memory%20Controller%20-%20Hamsterworks%20Wiki%21_files/wikibits.js"></script>
+<script src="SDRAM%20Memory%20Controller%20-%20Hamsterworks%20Wiki%21_files/ajax.js"></script>
+<script src="SDRAM%20Memory%20Controller%20-%20Hamsterworks%20Wiki%21_files/index.php"></script>
+
+</head>
+<body class="mediawiki ltr ns-0 ns-subject page-SDRAM_Memory_Controller skin-monobook">
+<div id="globalWrapper">
+<div id="column-content"><div id="content">
+	<a id="top"></a>
+	
+	<h1 id="firstHeading" class="firstHeading">SDRAM Memory Controller</h1>
+	<div id="bodyContent">
+		<h3 id="siteSub">From Hamsterworks Wiki!</h3>
+		<div id="contentSub"></div>
+		<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>
+		<!-- start content -->
+<p>This is my design for a memory controller for my <a href="http://hamsterworks.co.nz/mediawiki/index.php/Terasic_DE0-nano" title="Terasic DE0-nano">Terasic DE0-nano</a> FPGA board, which uses the ISSI <a href="http://hamsterworks.co.nz/mediawiki/index.php/IS42S16160B-7" title="IS42S16160B-7">IS42S16160B-7</a> 32MB SDRAM chip
+</p><p><b>Update - AlvieBoy has taken this disign, and is using it as part of his ZPUino project - you can find a debugged version at <a href="https://github.com/alvieboy/ZPUino-HDL/blob/dcache/zpu/hdl/zpuino/boards/papilio-pro/S6LX9/sdram_hamster.vhd" class="external free" rel="nofollow">https://github.com/alvieboy/ZPUino-HDL/blob/dcache/zpu/hdl/zpuino/boards/papilio-pro/S6LX9/sdram_hamster.vhd</a>, and a Wishbone wrapper at <a href="https://github.com/alvieboy/ZPUino-HDL/blob/dcache/zpu/hdl/zpuino/boards/papilio-pro/S6LX9/sdram_wrap.vhd" class="external free" rel="nofollow">https://github.com/alvieboy/ZPUino-HDL/blob/dcache/zpu/hdl/zpuino/boards/papilio-pro/S6LX9/sdram_wrap.vhd</a></b>
+</p><p><b>I've completed a new, tested, fully working controller - have a look at <a href="http://hamsterworks.co.nz/mediawiki/index.php/Simple_SDRAM_Controller" title="Simple SDRAM Controller">Simple_SDRAM_Controller</a></b>
+</p><p>Although aimed at 100MHz all of the designs below can be adapted 
+to other clock speeds. The only changes needed are to increase the 
+number of NOPs in the refresh chain to ensure that it takes at least 
+70ns.
+</p><p>Adapting to a CAS setting of 2 is only a little bit more 
+difficult, as the data is available one cycle earlier. A CAS of 2 can 
+only be used with a clock speed of 100MHz, and will make the biggest 
+difference with the simple FSM where it saves a cycle on every read, or 
+in the most complex where it saves a cycle flipping between reads and 
+writes.
+</p><p>The priority should be first to perform any pending refresh, but 
+priority of performing reads over writes depends on your target 
+application. For example if you are generating a VGA video signal reads 
+should take priority over writes otherwise "tearing" of the picture 
+could occur. 
+</p><p>I might not be completely following accepted conventions, but the
+ idea behind the directed graphs in this context are that as you follow 
+the arrows from node to node you will always generate a valid set of 
+commands for the SDRAM. For each clock tick you must follow an arrow, so
+ at 100MHz it takes 10ns to go from node to node, allowing you to 
+partially verify the design on paper.
+</p>
+<table id="toc" class="toc"><tbody><tr><td><div id="toctitle"><h2>Contents</h2> <span class="toctoggle">[<a href="javascript:toggleToc()" class="internal" id="togglelink">hide</a>]</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#FSM1_-_Simple_controller"><span class="tocnumber">1</span> <span class="toctext">FSM1 - Simple controller</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#FSM2_-_Optimised_simple_controller"><span class="tocnumber">2</span> <span class="toctext">FSM2 - Optimised simple controller</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#FSM3_-_With_back-to-back_reads_or_back-to-back_writes"><span class="tocnumber">3</span> <span class="toctext">FSM3 - With back-to-back reads or back-to-back writes</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#FSM4_-_With_mixed_back-to-back_reads_and_writes"><span class="tocnumber">4</span> <span class="toctext">FSM4 - With mixed back-to-back reads and writes</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Further_improvements_-_FSM5"><span class="tocnumber">5</span> <span class="toctext">Further improvements - FSM5</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Source_code"><span class="tocnumber">6</span> <span class="toctext">Source code</span></a></li>
+</ul>
+</td></tr></tbody></table><script>if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<h2> <span class="mw-headline" id="FSM1_-_Simple_controller"> FSM1 - Simple controller </span></h2>
+<p>Based on the information above, here is the design for a simple FSM 
+to access the SDRAM with a burst length of 4 at 100MHz, CAS = 3:
+</p><p><a href="http://hamsterworks.co.nz/mediawiki/index.php/File:Memctl_fsm1.png" class="image"><img alt="Memctl fsm1.png" src="SDRAM%20Memory%20Controller%20-%20Hamsterworks%20Wiki%21_files/Memctl_fsm1.png" height="524" width="227"></a>
+</p><p>(The blue circles indicate where data is transferred to/from the SDRAM)
+</p><p>Performance: 
+</p>
+<ul><li> Read is 11 cycles for four words = 72MB/s @ 100Hz, excluding refresh overhead
+</li><li> Write is 11 cycles for four words = 72MB/s @ 100Hz, excluding refresh overhead
+</li><li> Refresh is 8 cycles.
+</li></ul>
+<p><i>Pros:</i>
+</p>
+<ul><li> Simple to implement
+</li><li> Fast logic - only two nodes has multiple exits, and the choice is simple. 
+</li><li> Predictable performance. 
+</li></ul>
+<p><i>Cons:</i>
+</p>
+<ul><li> Poor performance
+</li></ul>
+<p>This can be slightly improved on with a few little changes. These focus around skipping the idle stage where possible.
+</p>
+<h2> <span class="mw-headline" id="FSM2_-_Optimised_simple_controller"> FSM2 - Optimised simple controller </span></h2>
+<p><a href="http://hamsterworks.co.nz/mediawiki/index.php/File:Memctl_fsm2.png" class="image"><img alt="Memctl fsm2.png" src="SDRAM%20Memory%20Controller%20-%20Hamsterworks%20Wiki%21_files/Memctl_fsm2.png" height="524" width="276"></a>
+</p><p>(The blue circles indicate where data is transferred to/from the SDRAM)
+</p><p>Performance: 
+</p>
+<ul><li> Read is 10 cycles for four words = 80MB/s @ 143Hz, excluding refresh overhead
+</li><li> Write is 10 cycles for four words = 80MB/s @ 143Hz, excluding refresh overhead
+</li><li> Refresh is 7 cycles.
+</li></ul>
+<p><i>Pros:</i>
+</p>
+<ul><li> Simple to implement
+</li><li> Fast logic - only three nodes has multiple exits, and the choice at these nodes is simple. 
+</li><li> Predictable performance. 
+</li></ul>
+<p><i>Cons:</i>
+</p>
+<ul><li> Poor performance
+</li></ul>
+<p>Further improvements can be made by not activating and precharging the row every time.
+</p>
+<h2> <span class="mw-headline" id="FSM3_-_With_back-to-back_reads_or_back-to-back_writes"> FSM3 - With back-to-back reads or back-to-back writes </span></h2>
+<p><a href="http://hamsterworks.co.nz/mediawiki/index.php/File:Memctl_fsm3.png" class="image"><img alt="Memctl fsm3.png" src="SDRAM%20Memory%20Controller%20-%20Hamsterworks%20Wiki%21_files/Memctl_fsm3.png" height="725" width="294"></a>
+</p><p>(The blue circles indicate where data is transferred to/from the SDRAM)
+</p><p>Performance: 
+</p>
+<ul><li> Single read is 10 cycles for four words = 80MB/s @ 100Hz, 
+excluding refresh overhead. For back to back reads this gets close 
+200MB/s
+</li><li> Single write is 10 cycles for four words = 80MB/s @ 100Hz, 
+excluding refresh overhead. For back to back writes this gets close 
+200MB/s
+</li><li> For mixed read/write workloads performance can be as low as 72MB/s
+</li><li> Refresh is 7 cycles.
+</li></ul>
+<p><i>Pros:</i>
+</p>
+<ul><li> Much improved performance for back-to-back operations (as long as you don't mix reads and writes.
+</li><li> You can choose to allow back-to-back operations in only the write or read sections, optimising for the applicaiton 
+</li></ul>
+<p><i>Cons:</i>
+</p>
+<ul><li> Logic is starting to get complex (and slow).
+</li><li> Unpredictable latency. 
+</li></ul>
+<p>I can see this being a good choice for something like my Mandelbrot 
+project, where writes are a few MB/s and are greatly outnumbered by the 
+reads required to service the VGA controller (which can be 75MB/s or 
+more!).
+</p><p>One major issue with this design is that it is possible to get 
+stuck in a loop in either the 'read' or 'write' operations. In the 
+unlikely case that this occurs there is the chance that refresh 
+operations will not performed as needed. The easy solution would be to 
+not perform back-to-back writes if a refresh operation is pending.
+</p><p>To improve on this we have to start mixing the read and write 
+operations, as long as they are on the same row. This is where things 
+get complex!
+</p>
+<h2> <span class="mw-headline" id="FSM4_-_With_mixed_back-to-back_reads_and_writes"> FSM4 - With mixed back-to-back reads and writes </span></h2>
+<p><a href="http://hamsterworks.co.nz/mediawiki/index.php/File:Memctl_fsm4.png" class="image"><img alt="Memctl fsm4.png" src="SDRAM%20Memory%20Controller%20-%20Hamsterworks%20Wiki%21_files/Memctl_fsm4.png" height="729" width="368"></a>
+</p><p>(The blue circles indicate where data is transferred to/from the SDRAM)
+</p><p>Performance: 
+</p>
+<ul><li> Single read is 10 cycles for four words = 80MB/s @ 100Hz, 
+excluding refresh overhead. For back to back reads this gets close 
+200MB/s
+</li><li> Single write is 10 cycles for four words = 80MB/s @ 100Hz, 
+excluding refresh overhead. For back to back writes this gets close 
+200MB/s
+</li><li> For mixed read/write workloads performance can be upto 145MB/s
+</li><li> Refresh is 7 cycles.
+</li></ul>
+<p><i>Pros:</i>
+</p>
+<ul><li> Much improved performance for back-to-back operations, including mixed reads and writes.
+</li></ul>
+<p><i>Cons:</i>
+</p>
+<ul><li> Logic is getting complex (and slow).
+</li><li> Unpredictable latency
+</li><li> Only back-to-back operations are improved, if the requests to 
+the same rwo are separated by a few clock cycles the row gets precharged
+ and opened again.
+</li></ul>
+<p>One other  issue with this design is that it is possible to get stuck
+ in a loop in either the 'read' or 'write' operations. In the unlikely 
+case that this occurs there is the chance that refresh operations will 
+not performed as needed. The easy solution is to not perform 
+back-to-back operations if a refresh operation is pending.
+</p>
+<h2> <span class="mw-headline" id="Further_improvements_-_FSM5"> Further improvements - FSM5 </span></h2>
+<p>The FSM4 design can also be improved on. It involves having an "idle 
+row activated" state, which would reduce latency for operations that  
+are interspersed with a few idle cycles - down from 10 cycles to 7 for 
+reads, and down from 7 cycles to 4 four for writes. These are pretty big
+ improvements.
+</p><p>As it involves a lot more complexity than the above designs, so the diagram looks completely different:
+</p><p><a href="http://hamsterworks.co.nz/mediawiki/index.php/File:Memctl_fsm5.png" class="image"><img alt="Memctl fsm5.png" src="SDRAM%20Memory%20Controller%20-%20Hamsterworks%20Wiki%21_files/Memctl_fsm5.png" height="638" width="553"></a>
+</p><p>(Blue circles are data transfers from the SDRAM, red circles are data transfers to the SDRAM)
+</p><p>Pros: 
+</p>
+<ul><li> Nearly a full featured design, everything but the ability to abort burst transfers is catered for
+</li></ul>
+<p>Cons: 
+</p>
+<ul><li> Very complex to code and test.
+</li><li> Complexity may reduce speed.
+</li><li> Large number of states to understand and manage.
+</li><li> Design in some cases is slower simpler design. for example 
+from and idle activerow to a completed read in a different row is takes 
+three cycles longer..
+</li></ul>
+<p>As long as priority is given to getting back to the idle state when a
+ refresh is pending this seems to be close to optimal design.
+</p>
+<h2> <span class="mw-headline" id="Source_code"> Source code </span></h2>
+<p>This is the source code for the FSM.
+</p>
+<pre>------------------------------------------------------
+-- FSM for a SDRAM controller
+--
+-- Version 0.1 - Ready to simulate
+--
+-- Author: Mike Field (hamster@snap.net.nz)
+--
+-- Feel free to use it however you would like, but
+-- just drop me an email to say thanks.
+-------------------------------------------------------
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+
+entity sdram_controller is
+   PORT (
+   CLOCK_50      : IN STD_LOGIC;
+   
+   -- Signals to/from the SDRAM chip
+   DRAM_ADDR   : OUT   STD_LOGIC_VECTOR (12 downto 0);
+   DRAM_BA      : OUT   STD_LOGIC_VECTOR (1 downto 0);
+   DRAM_CAS_N   : OUT   STD_LOGIC;
+   DRAM_CKE      : OUT   STD_LOGIC;
+   DRAM_CLK      : OUT   STD_LOGIC;
+   DRAM_CS_N   : OUT   STD_LOGIC;
+   DRAM_DQ      : INOUT STD_LOGIC_VECTOR(15 downto 0);
+   DRAM_DQM      : OUT   STD_LOGIC_VECTOR(1 downto 0);
+   DRAM_RAS_N   : OUT   STD_LOGIC;
+   DRAM_WE_N    : OUT   STD_LOGIC;
+   
+   --- Inputs from rest of the system
+   address      : IN     STD_LOGIC_VECTOR (23 downto 0);
+   req_read      : IN     STD_LOGIC;
+   req_write   : IN     STD_LOGIC;
+   data_out      : OUT     STD_LOGIC_VECTOR (31 downto 0);
+   data_out_valid : OUT     STD_LOGIC;
+   data_in      : IN     STD_LOGIC_VECTOR (31 downto 0)
+   );
+end entity;
+   
+   
+architecture rtl of sdram_controller is
+
+   
+   type reg is record
+      state       : std_logic_vector(8 downto 0);
+
+      address     : std_logic_vector(12 downto 0);
+      bank         : std_logic_vector( 1 downto 0);
+
+      init_counter: std_logic_vector(14 downto 0);
+      rf_counter   : std_logic_vector( 9 downto 0);
+      rf_pending    : std_logic;
+
+      rd_pending    : std_logic;
+      wr_pending    : std_logic;
+      act_row       : std_logic_vector(12 downto 0);
+
+      data_out_low: std_logic_vector(15 downto 0);
+      data_out_valid : std_logic;
+
+      dq_masks      : std_logic_vector(1 downto 0);
+   end record;
+   component sdram_clk_gen
+   PORT
+   (
+      inclk0: IN  STD_LOGIC;
+      c0      : OUT STD_LOGIC;
+      c1      : OUT STD_LOGIC
+   );
+   end component;
+
+   -- note to self - this constant should be "(others =&gt; '0')" when not simulating!!!
+   signal r : reg := ((others =&gt; '0'), (others =&gt; '0'), 
+                      (others =&gt; '0'), "000000000001000", (others =&gt; '0'), 
+                      '0', '0', '0', (others =&gt; '0'), (others =&gt; '0'), '0', (others =&gt; '0'));
+   signal n : reg;
+   
+   -- Vectors for each SDRAM 'command'
+   --- CS_N, RAS_N, CAS_N, WE_N 
+   constant cmd_nop   : std_logic_vector(3 downto 0) := "0111";
+   constant cmd_read  : std_logic_vector(3 downto 0) := "0101";   -- Must be sure A10 is low.
+   constant cmd_write : std_logic_vector(3 downto 0) := "0100";
+   constant cmd_act   : std_logic_vector(3 downto 0) := "0011";
+   constant cmd_pre   : std_logic_vector(3 downto 0) := "0010";  -- Must set A10 to '1'.
+   constant cmd_ref   : std_logic_vector(3 downto 0) := "0001";
+   constant cmd_mrs     : std_logic_vector(3 downto 0) := "0000"; -- Mode register set
+   -- State assignments
+   constant s_init_nop  : std_logic_vector(8 downto 0) := "00000" &amp; cmd_nop;
+   constant s_init_pre  : std_logic_vector(8 downto 0) := "00000" &amp; cmd_pre;
+   constant s_init_ref  : std_logic_vector(8 downto 0) := "00000" &amp; cmd_ref;
+   constant s_init_mrs  : std_logic_vector(8 downto 0) := "00000" &amp; cmd_mrs;
+   
+   constant s_idle  : std_logic_vector(8 downto 0) := "00001" &amp; cmd_nop;
+   
+   constant s_rf0   : std_logic_vector(8 downto 0) := "00010" &amp; cmd_ref;
+   constant s_rf1   : std_logic_vector(8 downto 0) := "00011" &amp; cmd_nop;
+   constant s_rf2   : std_logic_vector(8 downto 0) := "00100" &amp; cmd_nop;
+   constant s_rf3   : std_logic_vector(8 downto 0) := "00101" &amp; cmd_nop;
+   constant s_rf4   : std_logic_vector(8 downto 0) := "00110" &amp; cmd_nop;
+   constant s_rf5   : std_logic_vector(8 downto 0) := "00111" &amp; cmd_nop;
+
+   constant s_ra0   : std_logic_vector(8 downto 0) := "01000" &amp; cmd_act;
+   constant s_ra1   : std_logic_vector(8 downto 0) := "01001" &amp; cmd_nop;
+   constant s_ra2   : std_logic_vector(8 downto 0) := "01010" &amp; cmd_nop;
+
+   constant s_dr0   : std_logic_vector(8 downto 0) := "01011" &amp; cmd_pre;
+   constant s_dr1   : std_logic_vector(8 downto 0) := "01100" &amp; cmd_nop;
+
+   constant s_wr0   : std_logic_vector(8 downto 0) := "01101" &amp; cmd_write;
+   constant s_wr1   : std_logic_vector(8 downto 0) := "01110" &amp; cmd_nop;
+   constant s_wr2   : std_logic_vector(8 downto 0) := "01111" &amp; cmd_nop;
+   constant s_wr3   : std_logic_vector(8 downto 0) := "10000" &amp; cmd_nop;
+
+   constant s_rd0   : std_logic_vector(8 downto 0) := "10001" &amp; cmd_read;
+   constant s_rd1   : std_logic_vector(8 downto 0) := "10010" &amp; cmd_nop;
+   constant s_rd2   : std_logic_vector(8 downto 0) := "10011" &amp; cmd_nop;
+   constant s_rd3   : std_logic_vector(8 downto 0) := "10100" &amp; cmd_nop;
+   constant s_rd4   : std_logic_vector(8 downto 0) := "10101" &amp; cmd_read;
+   constant s_rd5   : std_logic_vector(8 downto 0) := "10110" &amp; cmd_nop;
+   constant s_rd6   : std_logic_vector(8 downto 0) := "10111" &amp; cmd_nop;
+   constant s_rd7   : std_logic_vector(8 downto 0) := "11000" &amp; cmd_nop;
+   constant s_rd8   : std_logic_vector(8 downto 0) := "11001" &amp; cmd_nop;
+   constant s_rd9   : std_logic_vector(8 downto 0) := "11011" &amp; cmd_nop;
+
+   constant s_drdr0 : std_logic_vector(8 downto 0) := "11101" &amp; cmd_pre;
+   constant s_drdr1 : std_logic_vector(8 downto 0) := "11110" &amp; cmd_nop;
+   constant s_drdr2 : std_logic_vector(8 downto 0) := "11111" &amp; cmd_nop;
+   
+   signal addr_row : std_logic_vector(12 downto 0);
+   signal addr_bank: std_logic_vector(1 downto 0);
+   signal addr_col : std_logic_vector(9 downto 0);
+
+   signal captured : std_logic_vector(15 downto 0);
+   
+   signal clock_100          : std_logic;
+   signal clock_100_delayed_3ns : std_logic;
+begin
+   -- Addressing is in 32 bit words - twice that of the DRAM width,
+   -- so each burst of four access two system words.
+   addr_row  &lt;= address(23 downto 11);
+   addr_bank &lt;= address(10 downto 9);
+   addr_col  &lt;= address(8 downto  1) &amp; "00";
+   
+sdram_clk_pll: sdram_clk_gen
+
+   -- Generate the 100MHz clock and the same phase shifted by 3ns
+   PORT MAP
+   (
+      inclk0    =&gt; CLOCK_50,
+      c0         =&gt; clock_100,
+      c1         =&gt; clock_100_delayed_3ns
+   );
+
+   DRAM_CLK         &lt;= clock_100_delayed_3ns;
+   DRAM_CKE       &lt;= '1';
+   DRAM_CS_N       &lt;= r.state(3);
+   DRAM_RAS_N       &lt;= r.state(2);
+   DRAM_CAS_N       &lt;= r.state(1);
+   DRAM_WE_N       &lt;= r.state(0);
+   DRAM_ADDR      &lt;= r.address;
+   DRAM_BA          &lt;= r.bank;
+   DATA_OUT         &lt;= captured &amp; r.data_out_low;
+   DRAM_DQM       &lt;= r.dq_masks;
+   data_out_valid &lt;= r.data_out_valid;
+
+   process (r, address, req_read, req_write, addr_row, addr_bank, addr_col, data_in, captured)
+   begin
+      -- copy the existing values
+      n &lt;= r;
+      if req_read = '1' then
+         n.rd_pending &lt;= '1';
+      end if;
+      
+      if req_write = '1' then
+         n.wr_pending &lt;= '1';
+      end if;
+      
+      n.dq_masks     &lt;= "11";
+      
+      -- first off, do we need to perform a refresh cycle ASAP?
+      if r.rf_counter = 770 then -- 781 = 64,000,000ns / 8192 / 10ns
+         n.rf_counter &lt;= (others =&gt; '0');
+         n.rf_pending &lt;= '1';
+      else
+         -- only start looking for refreshes outside of the initialisation state.
+         if not(r.state(8 downto 4) = s_init_nop(8 downto 4)) then
+            n.rf_counter &lt;= r.rf_counter + 1;
+         end if;
+      end if;
+      
+      -- Set the data bus into HIZ, high and low bytes masked
+      DRAM_DQ    &lt;= (others =&gt; 'Z');
+
+      n.init_counter &lt;= r.init_counter-1;
+      
+      -- Process the FSM
+      case r.state(8 downto 4) is
+         when s_init_nop(8 downto 4) =&gt;
+            n.state     &lt;= s_init_nop;
+            n.address &lt;= (others =&gt; '0');
+            n.bank    &lt;= (others =&gt; '0');
+            n.rf_counter   &lt;= (others =&gt; '0');
+            n.data_out_valid &lt;= '1';
+            
+            -- T-130, precharge all banks.
+            if r.init_counter = "000000010000010" then
+               n.state     &lt;= s_init_pre;
+               n.address(10)   &lt;= '1';
+            end if;
+
+            -- T-127, T-111, T-95, T-79, T-63, T-47, T-31, T-15, the 8 refreshes
+            
+            if r.init_counter(14 downto 7) = 0 and r.init_counter(3 downto 0) = 15 then
+               n.state     &lt;= s_init_ref;
+            end if;
+            
+            -- T-3, the load mode register 
+            if r.init_counter = 3 then
+               n.state     &lt;= s_init_mrs;
+                           -- Mode register is as follows:
+                           -- resvd   wr_b   OpMd   CAS=3   Seq   bust=4
+                n.address   &lt;= "000" &amp; "0" &amp; "00" &amp; "011" &amp; "0" &amp; "010";
+                           -- resvd
+               n.bank      &lt;= "00";
+            end if;
+
+            
+            -- T-1 The switch to the FSM (first command will be a NOP
+            if r.init_counter = 1 then
+               n.state          &lt;= s_idle;
+            end if;
+
+         ------------------------------
+         -- The Idle section
+         ------------------------------
+         when s_idle(8 downto 4) =&gt;
+            n.state &lt;= s_idle;
+
+            -- do we have to activate a row?
+            if r.rd_pending = '1' or r.wr_pending = '1' then
+               n.state        &lt;= s_ra0;
+               n.address     &lt;= addr_row;
+               n.act_row    &lt;= addr_row;
+            end if;
+
+            -- refreshes take priority over everything
+            if r.rf_pending = '1' then
+               n.state        &lt;= s_rf0;
+               n.rf_pending &lt;= '0';
+            end if;
+         ------------------------------
+         -- Row activation
+         -- s_ra2 is also the "idle with active row" state and provides
+         -- a resting point between operations on the same row
+         ------------------------------
+         when s_ra0(8 downto 4) =&gt;
+            n.state        &lt;= s_ra1;
+         when s_ra1(8 downto 4) =&gt;
+            n.state        &lt;= s_ra2;
+         when s_ra2(8 downto 4) =&gt;
+            -- we can stay in this state until we have something to do
+            n.state       &lt;= s_ra2;
+
+            -- If there is a read pending, deactivate the row
+            if r.rd_pending = '1' or r.wr_pending = '1' then
+               n.state     &lt;= s_dr0;
+               n.address(10) &lt;= '1';
+            end if;
+            
+            -- unless we have a read to perform on the same row? do that instead
+            if r.rd_pending = '1' and r.act_row = addr_row then
+               n.state     &lt;= s_rd0;
+               n.address &lt;= "000" &amp; addr_col;
+               n.bank    &lt;= addr_bank;
+               n.dq_masks &lt;= "00";
+               n.rd_pending &lt;= '0';
+            end if;
+            
+            -- unless we have a write on the same row? writes take priroty over reads
+            if r.wr_pending = '1' and r.act_row = addr_row then
+               n.state     &lt;= s_wr0;
+               n.address &lt;= "000" &amp; addr_col;
+               n.bank    &lt;= addr_bank;
+               n.dq_masks&lt;= "00";
+               n.wr_pending &lt;= '0';
+            end if;
+            
+            -- But refreshes take piority over everything!
+            if r.rf_pending = '1' then
+               n.state     &lt;= s_dr0;
+               n.address(10) &lt;= '1';
+            end if;
+            
+         ------------------------------------------------------
+         -- Deactivate the current row and return to idle state
+         ------------------------------------------------------
+         when s_dr0(8 downto 4) =&gt;
+            n.state &lt;= s_dr1;
+         when s_dr1(8 downto 4) =&gt;
+            n.state &lt;= s_idle;
+
+         ------------------------------
+         -- The Refresh section
+         ------------------------------
+         when s_rf0(8 downto 4) =&gt;
+            n.state &lt;= s_rf1;
+         when s_rf1(8 downto 4) =&gt;
+            n.state &lt;= s_rf2;
+         when s_rf2(8 downto 4) =&gt;
+            n.state &lt;= s_rf3;
+         when s_rf3(8 downto 4) =&gt;
+            n.state &lt;= s_rf4;
+         when s_rf4(8 downto 4) =&gt;
+            n.state &lt;= s_rf5;
+         when s_rf5(8 downto 4) =&gt;
+            n.state &lt;= s_idle;
+         ------------------------------
+         -- The Write section
+         ------------------------------
+         when s_wr0(8 downto 4) =&gt;
+            n.state    &lt;= s_wr1;
+            n.address &lt;= "000" &amp; addr_col;
+            n.bank    &lt;= addr_bank;
+            DRAM_DQ     &lt;= data_in(15 downto 0);
+            n.dq_masks&lt;= "00";
+         when s_wr1(8 downto 4) =&gt;
+            n.state    &lt;= s_wr2;
+            DRAM_DQ     &lt;= data_in(31 downto 16);
+            n.dq_masks&lt;= "00";
+         when s_wr2(8 downto 4) =&gt;
+            DRAM_DQ     &lt;= data_in(15 downto 0);
+            n.state     &lt;= s_wr3;
+            n.dq_masks&lt;= "00";
+         when s_wr3(8 downto 4) =&gt;
+            -- Default to the idle+row active state
+            n.state     &lt;= s_ra2;
+            DRAM_DQ     &lt;= data_in(31 downto 16);
+            n.dq_masks&lt;= "11";
+            
+            -- If there is a read or write then deactivate the row
+            if r.rd_pending = '1' or r.wr_pending = '1' then
+               n.state         &lt;= s_dr0;
+               n.address(10) &lt;= '1';
+            end if;
+
+            -- But if there is a read pending in the same row, do that
+            if r.rd_pending = '1' and r.act_row = addr_row then
+               n.state     &lt;= s_rd0;
+               n.address &lt;= "000" &amp; addr_col;
+               n.bank    &lt;= addr_bank;
+               n.dq_masks &lt;= "00";
+               n.rd_pending &lt;= '0';
+            end if;
+
+            -- unless there is a write pending in the same row, do that
+            if r.wr_pending = '1' and r.act_row = addr_row then
+               n.state     &lt;= s_wr0;
+               n.address &lt;= "000" &amp; addr_col;
+               n.bank    &lt;= addr_bank;
+               n.dq_masks&lt;= "00";
+               n.wr_pending &lt;= '0';
+            end if;
+
+            -- But always try and refresh if one is pending!
+            if r.rf_pending = '1' then
+               n.state       &lt;= s_dr0;
+               n.address(10) &lt;= '1';
+            end if;
+         
+         ------------------------------
+         -- The Read section
+         ------------------------------
+         when s_rd0(8 downto 4) =&gt;
+            n.state &lt;= s_rd1;
+            n.dq_masks &lt;= "00";
+         when s_rd1(8 downto 4) =&gt;
+            n.state &lt;= s_rd2;
+            n.dq_masks &lt;= "00";
+         when s_rd2(8 downto 4) =&gt;
+            n.state &lt;= s_rd3;
+            n.dq_masks &lt;= "00";
+         when s_rd3(8 downto 4) =&gt;
+            -- default is to end the read with the row open
+            n.state &lt;= s_rd7;
+
+            -- otherwise if there is a read or write prepare to deactivate the row.
+            -- (This is overridden if the read/write is to the same page)
+            if r.rd_pending = '1' or r.wr_pending = '1' then
+               n.state       &lt;= s_drdr0;
+               n.address(10) &lt;= '1';
+            end if;
+
+            -- override if the write is from the same row
+            if r.wr_pending = '1' and r.act_row = addr_row then
+               n.state &lt;= s_rd7;
+            end if;
+         
+            -- override if the read is from the same row
+            if r.rd_pending = '1' and r.act_row = addr_row then
+               n.state     &lt;= s_rd4;
+               n.address &lt;= "000" &amp; addr_col;
+               n.bank    &lt;= addr_bank;
+               n.dq_masks&lt;= "00";
+            end if;
+
+               -- If a refresh is pending then always deactivate the row
+            if r.rf_pending = '1' then 
+               n.state &lt;= s_drdr0;
+               n.address(10) &lt;= '1';
+            end if;
+            n.data_out_low &lt;= captured;
+            n.data_out_valid &lt;= '1';   
+         when s_rd4(8 downto 4) =&gt;
+            n.state &lt;= s_rd5;
+            n.dq_masks&lt;= "00";
+         when s_rd5(8 downto 4) =&gt;
+            n.state &lt;= s_rd6;
+            n.data_out_low &lt;= captured;
+            n.data_out_valid &lt;= '1';   
+            n.dq_masks&lt;= "00";
+         when s_rd6(8 downto 4) =&gt;
+            n.state &lt;= s_rd3;
+            n.dq_masks&lt;= "00";
+         when s_rd7(8 downto 4) =&gt;
+            n.state &lt;= s_rd8;
+            n.data_out_low &lt;= captured;
+            n.data_out_valid &lt;= '1';   
+         when s_rd8(8 downto 4) =&gt;
+            n.state &lt;= s_rd9;
+         when s_rd9(8 downto 4) =&gt;
+            -- by default go to the idle-with-row-active state
+            n.state &lt;= s_ra2;
+            n.data_out_low &lt;= captured;
+            n.data_out_valid &lt;= '1';   
+            
+            -- otherwise if there is a read or write prepare to deactivate the row.
+            -- (This is overridden if the read/write is to the same row)
+            if r.rd_pending = '1' or r.wr_pending = '1' then
+               n.state &lt;= s_dr0;
+               n.address(10) &lt;= '1';
+            end if;
+            
+            -- this is to catch if a read has turned up since the choices at state s_dr3
+            if r.rd_pending = '1' and r.act_row = addr_row then
+               n.state &lt;= s_rd0;
+               n.address &lt;= "000" &amp; addr_col;
+               n.bank    &lt;= addr_bank;
+               n.dq_masks &lt;= "00";
+               n.rd_pending &lt;= '0';
+            end if;
+
+            -- this is to catch if a read has turned up since the choices at state s_dr3
+            if r.wr_pending = '1' and r.act_row = addr_row then
+               n.state &lt;= s_wr0;
+               n.address &lt;= "000" &amp; addr_col;
+               n.bank    &lt;= addr_bank;
+               n.dq_masks&lt;= "00";
+               n.wr_pending &lt;= '0';
+            end if;
+            
+            if r.rf_pending = '1' then
+               n.state &lt;= s_dr0;
+               n.address(10) &lt;= '1';
+            end if;
+            
+         ------------------------------
+         -- The Deactivate row during read section
+         ------------------------------
+         when s_drdr0(8 downto 4) =&gt;
+            n.state &lt;= s_drdr1;
+         when s_drdr1(8 downto 4) =&gt;
+            n.state &lt;= s_drdr2;
+            n.data_out_low &lt;= captured;
+            n.data_out_valid &lt;= '1';   
+         when s_drdr2(8 downto 4) =&gt;
+            n.state &lt;= s_idle;
+
+            if r.rf_pending = '1' then
+               n.state &lt;= s_rf0;
+            end if;
+            
+            if r.rd_pending = '1' or r.wr_pending = '1' then
+               n.state       &lt;= s_ra0;
+               n.address    &lt;= addr_row;
+               n.act_row    &lt;= addr_row;
+               n.bank       &lt;= addr_bank;
+            end if;
+
+         when others =&gt;
+            n.state &lt;= s_init_nop;
+      end case;
+   end process;
+   
+   --- The clock driven logic
+   process (clock_100, n)
+   begin
+      if clock_100'event and clock_100 = '1' then
+         r &lt;= n;
+      end if;
+   end process;
+
+   process (clock_100_delayed_3ns, dram_dq)
+   begin
+      if clock_100_delayed_3ns'event and clock_100_delayed_3ns = '1' then
+         captured &lt;= dram_dq;
+      end if;
+   end process;
+
+end rtl;
+
+
+</pre>
+<!-- 
+NewPP limit report
+Preprocessor node count: 26/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key bitnami_mediawiki:pcache:idhash:103-0!1!0!!en!2!edit=0 and timestamp 20160301151337 -->
+<div class="printfooter">
+Retrieved from "<a href="http://hamsterworks.co.nz/mediawiki/index.php/SDRAM_Memory_Controller">http://hamsterworks.co.nz/mediawiki/index.php/SDRAM_Memory_Controller</a>"</div>
+		<div id="catlinks" class="catlinks catlinks-allhidden"></div>		<!-- end content -->
+				<div class="visualClear"></div>
+	</div>
+</div></div>
+<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+				 <li id="ca-nstab-main" class="selected"><a href="http://hamsterworks.co.nz/mediawiki/index.php/SDRAM_Memory_Controller" title="View the content page [alt-shift-c]" accesskey="c">Page</a></li>
+				 <li id="ca-talk" class="new"><a href="http://hamsterworks.co.nz/mediawiki/index.php?title=Talk:SDRAM_Memory_Controller&amp;action=edit&amp;redlink=1" title="Discussion about the content page [alt-shift-t]" accesskey="t">Discussion</a></li>
+				 <li id="ca-viewsource"><a href="http://hamsterworks.co.nz/mediawiki/index.php?title=SDRAM_Memory_Controller&amp;action=edit" title="This page is protected.
+You can view its source [alt-shift-e]" accesskey="e">View source</a></li>
+				 <li id="ca-history"><a href="http://hamsterworks.co.nz/mediawiki/index.php?title=SDRAM_Memory_Controller&amp;action=history" title="Past revisions of this page [alt-shift-h]" accesskey="h">History</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="http://hamsterworks.co.nz/mediawiki/index.php?title=Special:UserLogin&amp;returnto=SDRAM_Memory_Controller" title="You are encouraged to log in; however, it is not mandatory [alt-shift-o]" accesskey="o">Log in</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(/mediawiki/skins/common/images/hamsterworks.png);" href="http://hamsterworks.co.nz/mediawiki/index.php/Main_Page" title="Visit the main page"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+	<div class="generated-sidebar portlet" id="p-navigation">
+		<h5>Navigation</h5>
+		<div class="pBody">
+			<ul>
+				<li id="n-mainpage-description"><a href="http://hamsterworks.co.nz/mediawiki/index.php/Main_Page" title="Visit the main page [alt-shift-z]" accesskey="z">Main page</a></li>
+				<li id="n-portal"><a href="http://hamsterworks.co.nz/mediawiki/index.php/Hamsterworks_Wiki%21:Community_portal" title="About the project, what you can do, where to find things">Community portal</a></li>
+				<li id="n-currentevents"><a href="http://hamsterworks.co.nz/mediawiki/index.php/Hamsterworks_Wiki%21:Current_events" title="Find background information on current events">Current events</a></li>
+				<li id="n-recentchanges"><a href="http://hamsterworks.co.nz/mediawiki/index.php/Special:RecentChanges" title="The list of recent changes in the wiki [alt-shift-r]" accesskey="r">Recent changes</a></li>
+				<li id="n-randompage"><a href="http://hamsterworks.co.nz/mediawiki/index.php/Special:Random" title="Load a random page [alt-shift-x]" accesskey="x">Random page</a></li>
+				<li id="n-help"><a href="http://hamsterworks.co.nz/mediawiki/index.php/Help:Contents" title="The place to find out">Help</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/mediawiki/index.php" id="searchform">
+				<input name="title" value="Special:Search" type="hidden">
+				<input id="searchInput" title="Search Hamsterworks Wiki!" accesskey="f" name="search" type="search">
+				<input name="go" class="searchButton" id="searchGoButton" value="Go" title="Go to a page with this exact name if exists" type="submit">&nbsp;
+				<input name="fulltext" class="searchButton" id="mw-searchButton" value="Search" title="Search the pages for this text" type="submit">
+			</form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>Toolbox</h5>
+		<div class="pBody">
+			<ul>
+				<li id="t-whatlinkshere"><a href="http://hamsterworks.co.nz/mediawiki/index.php/Special:WhatLinksHere/SDRAM_Memory_Controller" title="List of all wiki pages that link here [alt-shift-j]" accesskey="j">What links here</a></li>
+				<li id="t-recentchangeslinked"><a href="http://hamsterworks.co.nz/mediawiki/index.php/Special:RecentChangesLinked/SDRAM_Memory_Controller" title="Recent changes in pages linked from this page [alt-shift-k]" accesskey="k">Related changes</a></li>
+<li id="t-specialpages"><a href="http://hamsterworks.co.nz/mediawiki/index.php/Special:SpecialPages" title="List of all special pages [alt-shift-q]" accesskey="q">Special pages</a></li>
+				<li id="t-print"><a href="http://hamsterworks.co.nz/mediawiki/index.php?title=SDRAM_Memory_Controller&amp;printable=yes" rel="alternate" title="Printable version of this page [alt-shift-p]" accesskey="p">Printable version</a></li>				<li id="t-permalink"><a href="http://hamsterworks.co.nz/mediawiki/index.php?title=SDRAM_Memory_Controller&amp;oldid=3965" title="Permanent link to this revision of the page">Permanent link</a></li>			</ul>
+		</div>
+	</div>
+</div><!-- end of the left (by default at least) column -->
+<div class="visualClear"></div>
+<div id="footer">
+	<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="SDRAM%20Memory%20Controller%20-%20Hamsterworks%20Wiki%21_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" height="31" width="88"></a></div>
+	<ul id="f-list">
+		<li id="lastmod"> This page was last modified on 15 October 2013, at 09:24.</li>
+		<li id="viewcount">This page has been accessed 30,269 times.</li>
+		<li id="privacy"><a href="http://hamsterworks.co.nz/mediawiki/index.php/Hamsterworks_Wiki%21:Privacy_policy" title="Hamsterworks Wiki!:Privacy policy">Privacy policy</a></li>
+		<li id="about"><a href="http://hamsterworks.co.nz/mediawiki/index.php/Hamsterworks_Wiki%21:About" title="Hamsterworks Wiki!:About">About Hamsterworks Wiki!</a></li>
+		<li id="disclaimer"><a href="http://hamsterworks.co.nz/mediawiki/index.php/Hamsterworks_Wiki%21:General_disclaimer" title="Hamsterworks Wiki!:General disclaimer">Disclaimers</a></li>
+	</ul>
+</div>
+</div>
+
+<script>if (window.runOnloadHook) runOnloadHook();</script>
+<!-- Served in 0.400 secs. -->
+</body></html>

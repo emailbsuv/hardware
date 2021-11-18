@@ -1,0 +1,11 @@
+Fitter Status : Successful - Mon Jul 19 02:59:18 2021
+Quartus Prime Version : 18.0.0 Build 614 04/24/2018 SJ Standard Edition
+Revision Name : blinker
+Top-level Entity Name : blinker
+Family : MAX II
+Device : EPM240T100C5
+Timing Models : Final
+Total logic elements : 73 / 240 ( 30 % )
+Total pins : 7 / 80 ( 9 % )
+Total virtual pins : 0
+UFM blocks : 0 / 1 ( 0 % )

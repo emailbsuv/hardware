@@ -1,0 +1,49 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "LED_led",
+					"strict" : false
+				},
+				{
+					"name" : "LED_Tesla",
+					"strict" : false
+				},
+				{
+					"name" : "LED_PP1",
+					"strict" : false
+				},
+				{
+					"name" : "LED_PP2",
+					"strict" : false
+				},
+				{
+					"name" : "BTN_freq_DOWN",
+					"strict" : false
+				},
+				{
+					"name" : "BTN_freq_UP",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tms",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tck",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tdi",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tdo",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

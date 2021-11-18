@@ -1,0 +1,38 @@
+module blinker (clk, LED1, LED2, LED3);
+
+input clk;
+output LED1;
+output LED2;
+output LED3;
+
+reg [28:0] counter;
+reg LED_status;
+reg LED_status2;
+reg LED_status3;
+
+initial begin
+counter <= 29'b0;
+LED_status <= 1'b0;
+LED_status2 <= 1'b0;
+LED_status3 <= 1'b0;
+end
+
+always @ (posedge clk) 
+begin
+counter <= counter + 1'b1;
+if (counter > 25000000)
+begin
+LED_status <= !LED_status;
+LED_status2 <= !LED_status2;
+LED_status3 <= !LED_status3;
+counter <= 29'b0;
+end
+
+
+end
+
+assign LED1 = LED_status;
+assign LED2 = LED_status2;
+assign LED3 = LED_status3;
+
+endmodule

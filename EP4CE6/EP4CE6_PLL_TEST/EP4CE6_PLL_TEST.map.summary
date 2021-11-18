@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Wed Aug 11 15:54:02 2021
+Quartus Prime Version : 18.0.0 Build 614 04/24/2018 SJ Standard Edition
+Revision Name : EP4CE6_PLL_TEST
+Top-level Entity Name : EP4CE6_PLL_TEST
+Family : Cyclone IV E
+Total logic elements : 32
+    Total combinational functions : 28
+    Dedicated logic registers : 32
+Total registers : 32
+Total pins : 9
+Total virtual pins : 0
+Total memory bits : 0
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 1
